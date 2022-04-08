@@ -38,10 +38,11 @@ pipeline {
     }
 
     stage('Docker Login&Push'){
+        steps{
           sh "sudo docker login --username ${dockeruserID} --password ${dockerpass}"
           sh "sudo docker push ${dockeruserID}/tomcat_deploy:${imageTag}"
         }
-
+    }
 
     }
 }
