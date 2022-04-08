@@ -29,7 +29,12 @@ pipeline {
         }
     }
 
+    stage ("build docker image"){
+        steps{
+            sh "sudo docker build . -t rganjaredocker/tomcat_deploy:latest"
+            sh "docker images"
+        }
+    }
 
-    
     }
 }
