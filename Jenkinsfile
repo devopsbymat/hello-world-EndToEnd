@@ -12,7 +12,7 @@ pipeline {
     string(name: 'imageTag', defaultValue: 'apache-latest', description: 'Enter Docker Image tag')
     password(name: 'dockerpass', defaultValue: 'Rahul#143', description: 'Enter docker login password ')
     string(name: 'targetserver', defaultValue: 'j-slave2-CT', description: 'Enter Target server name ')
-    string(name: 'targetserverIP', defaultValue: '15.207.111.16', description: 'Enter Target Server IP ')
+    string(name: 'targetserverIP', defaultValue: '15.207.111.20', description: 'Enter Target Server IP ')
     }
 
     stages {
