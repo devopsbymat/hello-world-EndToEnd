@@ -32,7 +32,7 @@ pipeline {
 
     stage ("build docker image"){
         steps{
-            sh "sudo docker build . -t ${dockeruserID}/tomcat_deploy:${imageTag}"
+            sh "sudo docker build . -t ${dockeruserID}/tomcat_regapp:${imageTag}"
             sh "docker images"
         }
     }
@@ -40,7 +40,13 @@ pipeline {
     stage('Docker Login&Push'){
         steps{
           sh "sudo docker login --username ${dockeruserID} --password ${dockerpass}"
-          sh "sudo docker push ${dockeruserID}/tomcat_deploy:${imageTag}"
+          sh "sudo docker push ${dockeruserID}/tomcat_regapp:${imageTag}"
+        }
+    }
+
+    stage('Docker Deployment'){
+        steps{
+          sh "sudo docker -d --name regapp-server -p 8089:8080 ${dockeruserID}/tomcat_regapp:${imageTag}"
         }
     }
 
