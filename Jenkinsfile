@@ -9,8 +9,9 @@ pipeline {
         }
     }
     parameters {
-    string(name: 'imageTag', defaultValue: 'apache-latest', description: 'Enter Docker Image tag')
-    password(name: 'dockerpass', defaultValue: 'Rahul#143', description: 'Enter docker login password ')
+    string(name: 'imageTag', defaultValue: 'latest', description: 'Enter Docker Image tag')
+    password(name: 'dockeruserID', defaultValue: 'rganjaredocker', description: 'Enter docker user id')
+    password(name: 'dockerpass', defaultValue: 'Rahul#143', description: 'Enter docker login password')
     string(name: 'targetserver', defaultValue: 'j-slave2-CT', description: 'Enter Target server name ')
     string(name: 'targetserverIP', defaultValue: '15.207.111.20', description: 'Enter Target Server IP ')
     }
@@ -31,10 +32,16 @@ pipeline {
 
     stage ("build docker image"){
         steps{
-            sh "sudo docker build . -t rganjaredocker/tomcat_deploy:latest"
+            sh "sudo docker build . -t ${dockeruserID}/tomcat_deploy:${imageTag}"
             sh "docker images"
         }
     }
+
+    stage('Docker Login&Push'){
+          sh "sudo docker login --username ${dockeruserID} --password ${dockerpass}"
+          sh "sudo docker push ${dockeruserID}/tomcat_deploy:${imageTag}"
+        }
+
 
     }
 }
