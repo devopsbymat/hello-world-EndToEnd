@@ -46,7 +46,7 @@ pipeline {
 
     stage('Docker Deployment'){
         steps{
-          sh "sudo docker -d --name regapp-server -p 8089:8080 ${dockeruserID}/tomcat_regapp:${imageTag}"
+          sh "sudo docker -itd --name regapp-server -p 8089:8080 ${dockeruserID}/tomcat_regapp:${imageTag}"
         }
     }
 
